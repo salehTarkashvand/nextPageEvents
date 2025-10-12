@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <Fragment>
       <MainHeader />
-      <main> {children}</main>
+      <main>{children}</main>
     </Fragment>
   );
 }
