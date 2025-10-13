@@ -1,10 +1,15 @@
 import Link from "next/link";
-import classes from './button.module.css'
+import classes from "./button.module.css";
 
 export default function Button(props) {
+  if (props.link) {
     return (
-        <Link href={props.link} legacyBehavior >
+      <Link href={props.link} legacyBehavior>
         <a className={classes.btn}>{props.children}</a>
-        </Link>
+      </Link>
     );
+  }
+  return (
+    <button onClick={props.onClick} >{props.children}</button>
+  )
 }
