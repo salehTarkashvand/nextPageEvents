@@ -9,7 +9,6 @@ export default function HomePage() {
         <title>nextJs events</title>
         <meta name="description" content="find a lot of great events that allow you to evolve" />
       </Head>
-      <EventList items={events} />
       <EventList items={featuredEvents} />
     </div>
   );

@@ -5,14 +5,25 @@ import { Fragment } from "react";
 import ResultsTitle from "../../components/event/results-title";
 import ErrorAlert from "../../components/ui/error-alert";
 import Button from "../../components/ui/Button";
+import Head from "next/head";
 
 export default function FilteredEventsPage() {
   const router = useRouter();
   const filteredData = router.query.slug;
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`A list of filtered events.`}
+      />
+    </Head>
+  );
   if (!filteredData) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p className="center">Loading...</p>
         </ErrorAlert>
@@ -28,6 +39,16 @@ export default function FilteredEventsPage() {
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events for ${numMonth} / ${numYear} .`}
+      />
+    </Head>
+  );
+
   if (
     isNaN(numYear) ||
     isNaN(numMonth) ||
@@ -38,6 +59,7 @@ export default function FilteredEventsPage() {
   ) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p> invalid filter. please adjust your values! </p>
         </ErrorAlert>
@@ -52,6 +74,7 @@ export default function FilteredEventsPage() {
   if (!filtredEvent || filtredEvent.length === 0) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p> No events found for the chosen filter! </p>
         </ErrorAlert>
@@ -65,10 +88,7 @@ export default function FilteredEventsPage() {
 
   return (
     <Fragment>
-      <Head>
-        <title>Filtered Events</title>
-        <meta name="description" content={`All events for ${numMonth} / ${numYear} .`} />
-      </Head>
+      {pageHeadData}
       <ResultsTitle date={date} />
       <EventList items={filtredEvent} />
     </Fragment>
